@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
+<% pageContext.setAttribute("newLineChar", "\n"); %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,7 +27,7 @@
     		</tr>
     		<tr>
     			<td>내용</td>
-    			<td>${boardDto.content}</td>
+    			<td>${fn:replace(boardDto.content,newLineChar,"<br/>")}</td>
     		</tr>
     		<tr>
     			<td>작성자</td>
@@ -33,13 +35,13 @@
     		</tr>
     		<tr>
     			<td>작성일</td>
-    			<td>${boardDto.indate}</td>
+    			<td>${fn:split(boardDto.indate," ")[0]}</td>
     		</tr>
     		<tr>
     			<td colspan="2" align="center">
-    				<button class="btn btn-primary btn-sm">수정화면</button>
-    				<button class="btn btn-primary btn-sm">삭제</button>
-    				<button class="btn btn-primary btn-sm">목록</button>
+    				<a href="boardUpdateForm.do/${boardDto.idx}" class="btn btn-primary btn-sm">수정화면</a>
+    				<a href="boardDelete.do/${boardDto.idx}" class="btn btn-primary btn-sm">삭제</a>
+    				<a href="boardList.do" class="btn btn-primary btn-sm">목록</a>
     			</td>
     		</tr>
     	</table>

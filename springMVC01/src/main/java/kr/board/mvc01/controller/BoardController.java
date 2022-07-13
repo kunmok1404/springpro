@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -36,9 +37,28 @@ public class BoardController {
 	}
 	
 	@GetMapping("/boardContent.do")
-	public String boardContent(@RequestParam Integer idx, Model model) {
+	public String boardContent(Integer idx, Model model) {
+		boardMapper.boardCount(idx);
 		model.addAttribute("boardDto", boardMapper.boardContent(idx));
 		return "boardContent"; 
+	}
+	
+	@GetMapping("/boardDelete.do/{idx}")
+	public String boardDelete(@PathVariable("idx") Integer idx) {
+		boardMapper.boardDelete(idx);
+		return "redirect:/boardList.do"; 
+	}
+	
+	@GetMapping("/boardUpdateForm.do/{idx}")
+	public String boardUpdateForm(@PathVariable("idx") Integer idx, Model model) {
+		model.addAttribute("boardDto", boardMapper.boardContent(idx));
+		return "boardUpdate"; 
+	}
+	
+	@PostMapping("/boardUpdate.do")
+	public String boardUpdate(Board vo) {
+		boardMapper.boardUpdate(vo);
+		return "redirect:/boardList.do"; 
 	}
 	
 }

@@ -1,7 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions"%>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -19,27 +18,30 @@
   <div class="panel panel-default">
     <div class="panel-heading">BOARD</div>
     <div class="panel-body">
-    	<table class="table table-bordered table-hover">
+    	<form action="../boardUpdate.do" method="post">
+    	<input type="hidden" name="idx" value="${boardDto.idx}"/>
+    	<table class="table">
     		<tr>
-				<td>번호</td>  
-				<td>제목</td> 
-				<td>내용</td>   
-				<td>작성자</td>
-				<td>작성일</td>
-				<td>조회수</td> 		
+    			<td>제목</td>
+    			<td><input type="text" name="title" class="form-control" value="${boardDto.title}"/></td>
     		</tr>
-    		<c:forEach items="${list}" var="item">
-    			<tr>
-					<td>${item.idx}</td>
-					<td><a href="boardContent.do?idx=${item.idx}">${item.title}</a></td>
-					<td>${item.content}</td>
-					<td>${item.writer}</td>
-					<td>${fn:split(item.indate," ")[0]}</td>
-					<td>${item.count}</td>	
-	    		</tr>
-    		</c:forEach>
+    		<tr>
+    			<td>내용</td>
+    			<td><textarea rows="7" name="content" class="form-control"/>${boardDto.content}</textarea></td>
+    		</tr>
+    		<tr>
+    			<td>작성자</td>
+    			<td><input type="text" class="form-control" value="${boardDto.writer}" readonly/></td>
+    		</tr>
+    		<tr>
+    			<td colspan="2" align="center">
+    				<button type="submit" class="btn btn-primary btn-sm">수정</button>
+    				<button type="reset" class="btn btn-warning btn-sm">취소</button>
+    				<button type="button" class="btn btn-info btn-sm" onclick="location.href='../boardList.do'">목록</button>
+    			</td>
+    		</tr>
     	</table>
-    	<a href="boardForm.do" class="btn btn-primary btn-sm">글쓰기</a>
+    	</form>
     </div>
     <div class="panel-footer">스프1탄_TED</div>
   </div>

@@ -18,5 +18,16 @@
 		FROM myboard 
 		WHERE idx = #{idx}
 	</select>
+	
+	<delete id="boardDelete" parameterType="int">
+		DELETE FROM myboard WHERE idx = #{idx}
+	</delete>
+	
+	<update id="boardUpdate" parameterType="kr.board.mvc01.entity.Board">
+		UPDATE myboard SET
+			TITLE = #{title},
+			CONTENT = #{content}
+		WHERE idx = #{idx}
+	</update>
 
 </mapper>
